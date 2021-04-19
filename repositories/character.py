@@ -1,7 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 from exceptions import ResourceDoesNotExist
 from models import CharacterModel, HatModel
-from repositories import *
 
 
 class CharacterRepository:
@@ -44,7 +43,8 @@ class CharacterRepository:
         return {"count": len(results), "characters": results}
 
     @staticmethod
-    def create(name: str, age: int, weight: float, human: bool, hat_id: int = None) -> dict:
+    def create(name: str, age: int, weight: float,
+               human: bool, hat_id: int = None) -> dict:
         """ Create character """
         result: dict = {}
         try:
@@ -54,11 +54,15 @@ class CharacterRepository:
                 if hat is None:
                     raise ResourceDoesNotExist("Hat {} does not exist".format(hat_id))
 
-            character = CharacterModel(name=name, age=age, weight=weight, human=human, hat_id=hat_id)
+            character = CharacterModel(name=name,
+                                       age=age,
+                                       weight=weight,
+                                       human=human,
+                                       hat_id=hat_id)
             character.save()
 
             result = {
-                'id' : character.id,
+                'id': character.id,
                 'name': character.name,
                 'age': character.age,
                 'weight': character.weight,
@@ -69,11 +73,11 @@ class CharacterRepository:
             CharacterModel.rollback()
             # raise ResourceExists('Character already exists')
 
-
         return result
 
     @staticmethod
-    def update(id: int, name: str, age: int, weight: float, human: bool, hat_id: int = None) -> dict:
+    def update(id: int, name: str, age: int,
+               weight: float, human: bool, hat_id: int = None) -> dict:
         """ Create character """
         result: dict = {}
         try:
@@ -99,5 +103,3 @@ class CharacterRepository:
             # raise ResourceExists('user already exists')
 
         return result
-
-

@@ -48,7 +48,7 @@ class CharacterResource(Resource):
             human: bool = request_json['human']
             hat_id: bool = request_json['hat_id']
 
-            character = CharacterRepository.update(id,name, age, weight, human, hat_id)
+            character = CharacterRepository.update(id, name, age, weight, human, hat_id)
             return character, 200
 
         except Exception as e:

@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask_restful import Resource
 
 from models import Colors
-from repositories import HatRepository, CharacterRepository
+from repositories import HatRepository
 
 
 class HatResource(Resource):
@@ -22,7 +22,7 @@ class HatResource(Resource):
         request_json = request.get_json(silent=True)
 
         try:
-            color:Colors = request_json['color']
+            color: Colors = request_json['color']
             hat = HatRepository.update(id, color=color)
             return hat, 200
 
@@ -30,7 +30,6 @@ class HatResource(Resource):
             response = jsonify(e.to_dict())
             response.status_code = e.status_code
             return response
-
 
 
 class HatListResource(Resource):

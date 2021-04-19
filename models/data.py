@@ -1,5 +1,5 @@
 from models import db, BaseModel
-from sqlalchemy import Column, Integer, DateTime
+from sqlalchemy import Column, DateTime
 from sqlalchemy.sql import func
 
 
@@ -14,4 +14,3 @@ class DataModel(db.Model, BaseModel):
     def __init__(self, name, value):
         self.name = name
         self.value = value
-

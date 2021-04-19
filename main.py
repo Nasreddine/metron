@@ -12,18 +12,18 @@ migrate = Migrate(app, db)
 # API
 api = Api(app)
 api.add_resource(HealthCheck, '/healthcheck')
-api.add_resource(CharacterListResource, '/characters',  endpoint = '/characters')
-api.add_resource(CharacterResource, '/character/<int:id>',endpoint = 'character')
+api.add_resource(CharacterListResource, '/characters', endpoint='/characters')
+api.add_resource(CharacterResource, '/character/<int:id>', endpoint='character')
 api.add_resource(HatResource, '/hat', '/hat/<id>')
-api.add_resource(HatListResource, '/hats',  endpoint = '/hats')
-api.add_resource(DataResource, '/data', endpoint = '/data')
+api.add_resource(HatListResource, '/hats', endpoint='/hats')
+api.add_resource(DataResource, '/data', endpoint='/data')
 
 
 # CLI for migrations
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(app=app, db=db, 
-    CharacterResource=CharacterModel,
-    HatResource=HatModel
-    )
+    return dict(app=app, db=db,
+                CharacterResource=CharacterModel,
+                HatResource=HatModel
+                )

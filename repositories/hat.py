@@ -1,13 +1,13 @@
 from sqlalchemy.exc import IntegrityError
 
-from exceptions import ResourceExists, ResourceDoesNotExist
+from exceptions import ResourceExists
 from models import HatModel, Colors
 
 
 class HatRepository:
 
     @staticmethod
-    def create(color: Colors ) -> dict:
+    def create(color: Colors) -> dict:
         """ Create Hat """
         result: dict = {}
         try:

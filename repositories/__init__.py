@@ -4,4 +4,4 @@ from .character import CharacterRepository
 from .data import DataRepository
 
 db = SQLAlchemy()
-__all__ = ['CharacterRepository','HatRepository', 'DataRepository']
+__all__ = ['CharacterRepository', 'HatRepository', 'DataRepository']

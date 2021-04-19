@@ -1,4 +1,3 @@
-from repositories import *
 from . import db, Colors, HatModel
 from .base_model import BaseModel
 from exceptions import ValidationError
@@ -14,7 +13,6 @@ class CharacterModel(db.Model, BaseModel):
     human = db.Column(db.Boolean())
     hat_id = db.Column(db.Integer())
     hat = db.relationship("HatModel", uselist=False, backref="hat", lazy=True, cascade="all,delete")
-    # car = db.relationship("Car", uselist=False, back_populates="car")
 
     def __init__(self, name: str, age: int, weight: float, human: bool = False, hat_id: int = None):
 
@@ -28,7 +26,6 @@ class CharacterModel(db.Model, BaseModel):
             # self.hat = HatRepository.get(hat_id)
             # TOFIX: use repository after resolving cyclic import errors
             self.hat = HatModel.query.get(hat_id)
-
 
     """ Separate validations deponding on Model """
 

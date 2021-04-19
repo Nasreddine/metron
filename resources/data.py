@@ -1,8 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource
 
-from models import Colors
-from repositories import HatRepository, CharacterRepository
 from repositories.data import DataRepository
 
 
