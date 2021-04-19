@@ -21,8 +21,8 @@ Run flask
 flask run
 ```
 
-Run tests (test_character.py, for instance)
+Run tests 
 
 ```
-python -m unittest tests/unit/test_character.py 
+python -m unittest discover tests/unit/
 ```
