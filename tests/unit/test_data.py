@@ -37,8 +37,6 @@ class DataTest(unittest.TestCase):
 
         response = self.execute_post(data_json)
 
-        print(response)
-
         self.assertEqual(10.0, response.json['nasredine'])
         self.assertEqual(10.0, response.json['sid'])
 
