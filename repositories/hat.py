@@ -25,7 +25,7 @@ class HatRepository:
 
     @staticmethod
     def update(id: int, color: Colors) -> dict:
-        """ Create character """
+        """ Update hat by id """
         result: dict = {}
         try:
             hat = HatModel.query.get(id)
@@ -38,13 +38,12 @@ class HatRepository:
             }
         except IntegrityError:
             HatModel.rollback()
-            # raise ResourceExists('user already exists')
+            raise ResourceExists('user already exists')
 
         return result
 
     @staticmethod
     def delete(id: int) -> dict:
-        """ Query a character by id """
         character = HatModel.query.get_or_404(id)
         character.delete()
         result = {

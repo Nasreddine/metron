@@ -27,8 +27,6 @@ class CharacterModel(db.Model, BaseModel):
             # TOFIX: use repository after resolving cyclic import errors
             self.hat = HatModel.query.get(hat_id)
 
-    """ Separate validations deponding on Model """
-
     def validate(self):
         self.validate_human_age_weight()
         self.validate_human_hat()
