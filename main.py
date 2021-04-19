@@ -1,6 +1,6 @@
 from flask_restful import Api
 from resources import HealthCheck, \
-     CharacterResource, CharacterListResource, HatResource, HatListResource
+    CharacterResource, CharacterListResource, HatResource, HatListResource, DataResource
 from models import db, CharacterModel, HatModel
 from flask_migrate import Migrate
 from app import create_app
@@ -16,6 +16,8 @@ api.add_resource(CharacterListResource, '/characters',  endpoint = '/characters'
 api.add_resource(CharacterResource, '/character/<int:id>',endpoint = 'character')
 api.add_resource(HatResource, '/hat', '/hat/<id>')
 api.add_resource(HatListResource, '/hats',  endpoint = '/hats')
+api.add_resource(DataResource, '/data', endpoint = '/data')
+
 
 # CLI for migrations
 

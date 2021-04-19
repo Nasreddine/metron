@@ -8,7 +8,7 @@ class HatRepository:
 
     @staticmethod
     def create(color: Colors ) -> dict:
-        """ Create user """
+        """ Create Hat """
         result: dict = {}
         try:
             hat = HatModel(color=color)
@@ -20,6 +20,25 @@ class HatRepository:
         except IntegrityError:
             HatModel.rollback()
             raise ResourceExists('hat already exists')
+
+        return result
+
+    @staticmethod
+    def update(id: int, color: Colors) -> dict:
+        """ Create character """
+        result: dict = {}
+        try:
+            hat = HatModel.query.get(id)
+            hat.color = color
+            HatModel.commit()
+
+            result = {
+                'id': hat.id,
+                'color': hat.color.value,
+            }
+        except IntegrityError:
+            HatModel.rollback()
+            # raise ResourceExists('user already exists')
 
         return result
 

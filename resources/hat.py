@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
 
+from models import Colors
 from repositories import HatRepository, CharacterRepository
 
 
@@ -13,6 +14,22 @@ class HatResource(Resource):
         response = HatRepository.delete(id)
 
         return response, 200
+
+    def put(self, id):
+        """
+        Update hat
+        """
+        request_json = request.get_json(silent=True)
+
+        try:
+            color:Colors = request_json['color']
+            hat = HatRepository.update(id, color=color)
+            return hat, 200
+
+        except Exception as e:
+            response = jsonify(e.to_dict())
+            response.status_code = e.status_code
+            return response
 
 
 
@@ -29,8 +46,7 @@ class HatListResource(Resource):
         request_json = request.get_json(silent=True)
 
         try:
-            color: bool = request_json['color']
-
+            color: Colors = request_json['color']
             hat = HatRepository.create(color)
             return hat, 200
 

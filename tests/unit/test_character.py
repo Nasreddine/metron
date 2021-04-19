@@ -32,6 +32,39 @@ class CharacterTest(unittest.TestCase):
         self.assertEqual("nasredine", response.json['name'])
         self.assertEqual(200, response.status_code)
 
+    def test_successful_update(self):
+        """
+        GIVEN a Flask application
+        WHEN the '/characters' endpoint is is posted to create a new valid character
+        THEN check that a '200' status code is returned
+        """
+
+        character = json.dumps({
+            "name": "nasredine",
+            "age": 10,
+            "weight": 85,
+            "human": True,
+            "hat_id": None,
+        })
+
+        response = self.execute_post(character)
+
+        self.assertEqual("nasredine", response.json['name'])
+        self.assertEqual(200, response.status_code)
+
+        character_updated = json.dumps({
+            "name": "nasredine CHENIKI",
+            "age": 10,
+            "weight": 85,
+            "human": True,
+            "hat_id": None,
+        })
+
+        response_put = self.execute_put(response.json['id'], character_updated)
+
+        self.assertEqual("nasredine CHENIKI", response_put.json['name'])
+        self.assertEqual(200, response_put.status_code)
+
     def test_negative_age(self):
         """
               GIVEN a Flask application
@@ -189,4 +222,8 @@ class CharacterTest(unittest.TestCase):
 
     def execute_delete(self, id):
         response = self.test_client.delete('/character/{}'.format(id), headers={"Content-Type": "application/json"})
+        return response
+
+    def execute_put(self, id, data):
+        response = self.test_client.put('/character/{}'.format(id), headers={"Content-Type": "application/json"},data=data)
         return response

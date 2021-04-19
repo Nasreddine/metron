@@ -5,7 +5,9 @@ db = SQLAlchemy()
 
 from .base_model import BaseModel
 from .hat import HatModel,Colors
+from .data import DataModel
 
 from .character import CharacterModel
 
-__all__ = ['BaseModel','CharacterModel', 'HatModel', 'Colors']
+__all__ = ['BaseModel','CharacterModel', 'HatModel', 'Colors','DataModel']
+

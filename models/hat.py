@@ -1,5 +1,6 @@
 from models import db, BaseModel
 import enum
+import json
 
 
 class Colors(enum.Enum):
@@ -9,6 +10,7 @@ class Colors(enum.Enum):
 
     def __str__(self):
         return self.value
+
 
 
 class HatModel(db.Model, BaseModel):

@@ -15,7 +15,7 @@ class HatTest(unittest.TestCase):
     def test_successful_create(self):
         """
         GIVEN a Flask application
-        WHEN the '/characters' endpoint is is posted to create a new valid character
+        WHEN the '/hats' endpoint is is posted to create a new hat
         THEN check that a '200' status code is returned
         """
 
@@ -28,17 +28,35 @@ class HatTest(unittest.TestCase):
         self.assertEqual("YELLOW", response.json['color'])
         self.assertEqual(200, response.status_code)
 
-    def execute_post(self, data):
+    def test_successful_update(self):
         """
-           Perform POST request to /characters and return response
-            """
-        response = self.test_client.post('/hats', headers={"Content-Type": "application/json"}, data=data)
-        return response
+        GIVEN a Flask application
+        WHEN the '/hats' endpoint is is posted to update a hat
+        THEN check that a '200' status code is returned
+        """
+
+        hat = json.dumps({
+            "color": "YELLOW",
+        })
+
+        response = self.execute_post(hat)
+
+        self.assertEqual("YELLOW", response.json['color'])
+        self.assertEqual(200, response.status_code)
+
+        hat_updated = json.dumps({
+            "color": "GREEN",
+        })
+
+        response_put = self.execute_put(response.json['id'], hat_updated)
+
+        self.assertEqual("GREEN", response_put.json['color'])
+        self.assertEqual(200, response_put.status_code)
 
     def test_delete_hat(self):
         """
                   GIVEN a Flask application
-                  WHEN the '/hat' endpoint is is posted to create a character without a hat,
+                  WHEN the '/hat' endpoint is is posted to delete a hat,
                   THEN check that a '200' status code is returned
                   """
 
@@ -54,7 +72,19 @@ class HatTest(unittest.TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(True, response.json['deleted'])
 
-    # TODO: refactr code, put common methods in super class
+    def execute_post(self, data):
+        """
+           Perform POST request to /hats and return response
+            """
+        response = self.test_client.post('/hats', headers={"Content-Type": "application/json"}, data=data)
+        return response
+
+
     def execute_delete(self, id):
         response = self.test_client.delete('/hat/{}'.format(id), headers={"Content-Type": "application/json"})
+        return response
+
+    def execute_put(self, id, data):
+        response = self.test_client.put('/hat/{}'.format(id), headers={"Content-Type": "application/json"},
+                                        data=data)
         return response
