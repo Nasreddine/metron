@@ -4,10 +4,15 @@ from models import CharacterModel, HatModel
 
 
 class CharacterRepository:
+    """
+         A class to provide query interface to Character model
+
+         """
 
     @staticmethod
     def get(id: int) -> dict:
         """ Query a character by id """
+
         character = CharacterModel.query.get_or_404(id)
         character = {
             "name": character.name,
@@ -19,7 +24,7 @@ class CharacterRepository:
 
     @staticmethod
     def delete(id: int) -> dict:
-        """ Query a character by id """
+        """ Delete a character by id """
         character = CharacterModel.query.get_or_404(id)
         character.delete()
         result = {
@@ -29,6 +34,7 @@ class CharacterRepository:
 
     @staticmethod
     def get_all() -> dict:
+        """ Return all characters in the database"""
 
         characters = CharacterModel.query.all()
 

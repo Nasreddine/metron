@@ -1,7 +1,10 @@
 from models import db, BaseModel
 import enum
 
+
 class Colors(enum.Enum):
+    """Enum that represents colors, used in hat model """
+
     PURPLE: str = "PURPLE"
     YELLOW: str = "YELLOW"
     GREEN: str = "GREEN"
@@ -10,8 +13,11 @@ class Colors(enum.Enum):
         return self.value
 
 
-
 class HatModel(db.Model, BaseModel):
+    """
+         A class for Hat model
+
+         """
     __tablename__ = 'hat'
 
     id = db.Column(db.Integer, primary_key=True)

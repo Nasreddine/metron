@@ -4,6 +4,12 @@ from exceptions import ValidationError
 
 
 class CharacterModel(db.Model, BaseModel):
+
+    """
+       A class for Character model
+
+       """
+
     __tablename__ = 'character'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -28,12 +34,16 @@ class CharacterModel(db.Model, BaseModel):
             self.hat = HatModel.query.get(hat_id)
 
     def validate(self):
+        """Override validate method to check model validity """
+
         self.validate_human_age_weight()
         self.validate_human_hat()
         self.validate_name_hat_color()
         return True
 
     def validate_human_age_weight(self):
+        """Check age and weight consistency """
+
         if self.age <= 0:
             raise ValidationError("Age must be greater than 0")
         if self.weight > 80 and self.is_human() and self.age < 10:
@@ -41,10 +51,14 @@ class CharacterModel(db.Model, BaseModel):
         return True
 
     def validate_human_hat(self):
+        """Raise error if non-human has a hat  """
+
         if (not self.is_human()) and (self.hat is not None):
             raise ValidationError("Not human, no hat!")
 
     def validate_name_hat_color(self):
+        """Raise error if human with name containing p has a yellow hat  """
+
         if (self.is_human()
                 and "p" in self.name.lower()
                 and self.hat is not None

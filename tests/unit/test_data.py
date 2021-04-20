@@ -28,11 +28,13 @@ class DataTest(unittest.TestCase):
         data_array.append(d2)
         data_array.append(d3)
 
-        data_post = [
-            {"name": v.name, "value": v.value,
-             } for v in data_array]
+        data_dict = [
+            {
+                "name": v.name, "value": v.value,
+            } for v in data_array]
+
         data_json = json.dumps({
-            "data": data_post,
+            "data": data_dict,
         })
 
         response = self.execute_post(data_json)

@@ -5,6 +5,10 @@ from models import HatModel, Colors
 
 
 class HatRepository:
+    """
+          A class to provide query interface to Hat model
+
+          """
 
     @staticmethod
     def create(color: Colors) -> dict:

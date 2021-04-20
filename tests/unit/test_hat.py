@@ -79,7 +79,6 @@ class HatTest(unittest.TestCase):
         response = self.test_client.post('/hats', headers={"Content-Type": "application/json"}, data=data)
         return response
 
-
     def execute_delete(self, id):
         response = self.test_client.delete('/hat/{}'.format(id), headers={"Content-Type": "application/json"})
         return response

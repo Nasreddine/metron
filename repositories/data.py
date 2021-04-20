@@ -6,28 +6,24 @@ from models import HatModel, DataModel
 
 
 class DataRepository:
+    """
+          A class to provide query interface to Data model
+
+          """
 
     @staticmethod
     def create(data) -> dict:
         """ Create Data """
         try:
-            # Calculate sum and count by key
-            sum = defaultdict(float)
-            count = defaultdict(float)
-            for d in data:
-                sum[d['name']] += d['value']
-                count[d['name']] += 1
 
-            # Calculate average
-            avg = defaultdict(float)
-            for d in sum:
-                avg[d] = sum[d] / count[d]
+            avg_values = DataModel.compute_average_values(data)
+
             # save each entry separately
-            for d in avg:
-                d = DataModel(d, avg[d])
+            for d in avg_values:
+                d = DataModel(d, avg_values[d])
                 d.save()
 
         except IntegrityError:
-            HatModel.rollback()
+            DataModel.rollback()
             raise ResourceExists('hat already exists')
-        return avg
+        return avg_values

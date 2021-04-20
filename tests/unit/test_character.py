@@ -2,7 +2,7 @@ import unittest
 import json
 
 from main import app
-from models import db, Colors
+from models import db
 
 
 class CharacterTest(unittest.TestCase):
