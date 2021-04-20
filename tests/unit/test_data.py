@@ -20,8 +20,8 @@ class DataTest(unittest.TestCase):
         """
 
         data_array = []
-        d1 = DataModel(name="nasredine", value=10)
-        d2 = DataModel(name="nasredine", value=10)
+        d1 = DataModel(name="nasredine", value=2.347736)
+        d2 = DataModel(name="nasredine", value=13.763882)
         d3 = DataModel(name="sid", value=10)
 
         data_array.append(d1)
@@ -37,8 +37,8 @@ class DataTest(unittest.TestCase):
 
         response = self.execute_post(data_json)
 
-        self.assertEqual(10.0, response.json['nasredine'])
-        self.assertEqual(10.0, response.json['sid'])
+        self.assertAlmostEqual(8.05, response.json['nasredine'],1)
+        self.assertAlmostEqual(10.0, response.json['sid'],1)
 
     def execute_post(self, data):
         """
@@ -46,3 +46,6 @@ class DataTest(unittest.TestCase):
             """
         response = self.test_client.post('/data', headers={"Content-Type": "application/json"}, data=data)
         return response
+
+    def almost_equal(self, value_1, value_2, accuracy=10 ** -8):
+        return abs(value_1 - value_2) < accuracy
